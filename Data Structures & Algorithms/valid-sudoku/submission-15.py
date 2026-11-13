@@ -1,0 +1,29 @@
+from collections import defaultdict 
+
+
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        rows = defaultdict(set) 
+        cols = defaultdict(set) 
+        sub_box = defaultdict(set) 
+
+
+        for r in range(9):
+            for c in range(9):
+
+                if board[r][c] == ".":
+                    continue 
+
+                if board[r][c] in rows[r]:
+                    return False 
+                rows[r].add(board[r][c]) 
+
+                if board[r][c] in cols[c]:
+                    return False 
+                cols[c].add(board[r][c]) 
+
+                box_key = (r // 3, c // 3) 
+                if board[r][c] in sub_box[box_key]:
+                    return False 
+                sub_box[box_key].add(board[r][c]) 
+        return True 
